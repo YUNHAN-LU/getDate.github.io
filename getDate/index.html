@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="easy-sidebar-active">
+<head>
+<title>GET DATE</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+<!-- <link href="//cdn.hermes.com.tw/libs/bootstrap/4.6.1/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+<link href="../Resource/bootstrap-extend/css/sb-admin-2.min.css" rel="stylesheet" >
+<link href="../Resource/bootstrap-extend/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="../Resource/bootstrap-extend/css/bootstrap-select.min.css" rel="stylesheet" >
+<link href="../Resource/bootstrap-icons-1.2.0/font/bootstrap-icons.css" rel="stylesheet">
+
+<script src="../Resource/popper/popper.js"></script>
+<!-- <script src="//cdn.hermes.com.tw/libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="//cdn.hermes.com.tw/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
+<script src="../Resource/bootstrap-extend/js/moment-with-locales.min.js"></script>
+<script src="../Resource/bootstrap-extend/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../Resource/bootstrap-extend/js/bootstrap-select.min.js"></script>
+
+
+<style>
+	::-webkit-scrollbar {
+        display: none;
+    }
+
+    main {
+        width: 100vw;
+        height: 100vh;
+    }
+    section {
+        width: 100%;
+        height: 100%;
+    }
+
+    html, body {
+        height: 100%;
+    }
+    .container-fluid {
+        height: 61%;
+        overflow-y: hidden; 
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    } 
+
+    .input-group-text {
+        border-bottom-left-radius: 0% !important;
+        border-top-left-radius: 0% !important;
+    }
+    .card-info{
+		font-size: 17px;
+	}
+
+</style>
+</head>
+<body>
+
+<div class="row">
+    <!--- 查询 --->
+    <div class="col-lg-12 p-4">
+        <div id="accordion1">
+            <div class="card shadow border-primary mb-4 h-100">
+                <div class="card-header py-3 bg-primary" id="headingTwo">
+                    <div data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" id="collapseTitle">
+                        <h5 class="m-0 font-weight-bold text-white card-info"><i class="bi bi-caret-down-fill "></i> 查询</h5>
+                    </div>
+                </div>
+                <script>
+                    var oDiv = document.getElementById("collapseTitle");
+                    oDiv.onclick = function(){
+                        containerFluidChange();
+                    }
+                    function containerFluidChange() {
+                        var box = document.querySelector('.container-fluid');
+                        if(document.getElementById('collapseTwo').className == 'collapse'){
+                            //展開
+                            box.style.height = "61%";
+                        }else{
+                            //關閉
+                            box.style.height = "87%";
+                        }
+                    }
+                </script>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion1">
+                    <div class="card-body bg-gray-100">
+                        <!-- input start-end date -->
+                        <div class="row card-info text-gray-800">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 form-group">
+                                        <label for="" class="h6 text-gray-800 font-weight-bolds">開始日期：</label> 
+                                        <div class="input-group date" id='date1'>  
+                                            <input type="text" class="form-control" id='startDate'/>  
+                                            <div class="input-group-addon" style="width:auto"> 
+                                                <div class="input-group-text"> 
+                                                    <i class="bi bi-calendar3"></i>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                            
+                                    <script>
+                                        //預設全選
+                                        $('.selectpicker').selectpicker('selectAll');
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+             
+                        
+                        <!-- Query -->
+                        <div class="row">
+                            <div class="col-lg-6 form-group">
+                                <script>
+                                    //function name不能用click
+                                    function _click () {
+                                        start = document.getElementById('startDate').value;
+                              
+                                        deviceID = $('#selectpickerMachName').val();
+                                        Type = 0;
+                                        if($('#selectpickerType').val() === 'Workpiece coordinate system'){
+                                            Type = 1;
+                                        }
+                                        iFrame = document.getElementById('iframeHIST');
+                                        iFrame.src = "history.html";
+                                        containerFluidChange();//document.getElementById('collapseTwo').className雖然已經變化，但實際系統還沒變化，因此此func放前面
+                                        document.getElementById('collapseTwo').className = "collapse";
+                                        //location.href="index.php?startDate="+start+"&stopDate="+stop+"&deviceIDs="+deviceIDs_str+"&ProgNames="+ProgNames_str;  
+                                    }
+                                </script>
+                                <button class="btn btn-primary h6" onclick="_click()">Query</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="desdiv">
+	<iframe id='iframeHIST' style='width: 100%;height: 100%; border:none;'>
+	</iframe>	
+</div>
+</div>
+<script>
+	$('#date1').datetimepicker({
+    date:moment(),
+      format: 'YYYY-MM-DD',
+      locale: moment.locale('zh-tw'),
+  	});
+
+</script>
+
+</body>
+</html>

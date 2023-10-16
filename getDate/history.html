@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="easy-sidebar-active">
+<head>
+<title>CNC EDC</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+<!-- <link href="//cdn.hermes.com.tw/libs/bootstrap/4.6.1/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+<link href="../Resource/bootstrap-extend/css/sb-admin-2.min.css" rel="stylesheet" >
+<link href="../Resource/bootstrap-extend/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="../Resource/bootstrap-extend/css/bootstrap-select.min.css" rel="stylesheet" >
+<link href="../Resource/bootstrap-icons-1.2.0/font/bootstrap-icons.css" rel="stylesheet">
+
+<script src="../Resource/popper/popper.js"></script>
+<!-- <script src="//cdn.hermes.com.tw/libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="//cdn.hermes.com.tw/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
+<script src="../Resource/bootstrap-extend/js/moment-with-locales.min.js"></script>
+<script src="../Resource/bootstrap-extend/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../Resource/bootstrap-extend/js/bootstrap-select.min.js"></script>
+
+
+
+<style type="text/css">
+	::-webkit-scrollbar {
+        display: none;
+    }
+
+    main {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    section {
+        width: 100%;
+        height: 100%;
+    }
+    .input-group-text {
+        border-bottom-left-radius: 0% !important;
+        border-top-left-radius: 0% !important;
+    }
+    .card-info{
+		font-size: 17px;
+	}
+    .content{
+        display: none;
+    }
+    table{
+		table-layout:inherit;/* 下面td的定義才能起作用。 */
+	}
+
+    .loader {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        position: absolute;
+    }
+    .loader>div{
+        height: 100px;
+        width: 250px;
+        position: absolute;
+        /* margin: auto; */
+        margin-top: 12%;
+        margin-left: 40%;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        text-align:center;
+    }
+    .logo {
+        font-size: 150px; 
+        color: #4e73df;
+    }
+    .title {
+        color: #4e73df;
+        letter-spacing: 0.1rem;
+        font-weight:900;
+    }
+    .icn-spinner {
+        animation: spin-animation 3.5s infinite;
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+    }
+    @keyframes spin-animation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+</head>
+<body>
+<div class="loader">
+    <div>
+        <div class='icn-spinner'>
+            <span style="line-height: 100%;"><i class="bi bi-gear logo"></i></span>
+        </div>
+        <div class="h1 pt-2 title">CNC EDC</div>
+    </div>
+</div>
+<div class="content">
+    <!-- 加工歷程列表 -->
+    <div class="row">
+        <div class="text pl-5"></div>
+
+    </div>
+</div>
+
+
+<script>
+    weekdays = {0:"日",1:"一",2:"二",3:"三",4:"四",5:"五",6:"六"}
+    $(document).ready(function () {
+        myMomentObject = moment(parent.start, 'YYYY-MM-DD')
+        for(let i=0; i<7; i++){
+            
+            $(`.text`).append(myMomentObject.format('MM/DD')+" ("+weekdays[myMomentObject.format('d')]+")"+ `<br>`)
+            myMomentObject.add(1,'days')
+        }
+        
+        
+        $(".loader").fadeOut(500);
+        $(".content").fadeIn(500);
+    });
+   
+</script>
+
+
+
+</body>
+</html>
